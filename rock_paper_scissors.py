@@ -12,19 +12,20 @@ def rock_paper_scissors() -> None:
         computer_choice = random.choice(CHOICES)
         choice = get_user_input(prompt)
 
-        if choice == computer_choice:
-            print_choices(choice, computer_choice)
-            print('Tie!')
-            playing = keep_playing()
-        elif (choice == 'r' and computer_choice == 's') or (choice == 'p' and computer_choice == 'r') or (choice == 's' and computer_choice == 'p'):
-            print_choices(choice, computer_choice)
-            print('You won')
-            playing = keep_playing()
-        else:
-            print_choices(choice, computer_choice)
-            print('You lose!')
-            playing = keep_playing()
+        print_choices(choice, computer_choice)
+        determine_winner(choice, computer_choice)
+
+        playing = keep_playing()
+
     print('Thanks for playing :)')
+
+def determine_winner(choice, computer_choice):
+        if choice == computer_choice:
+            print('Tie!')
+        elif (choice == 'r' and computer_choice == 's') or (choice == 'p' and computer_choice == 'r') or (choice == 's' and computer_choice == 'p'):
+            print('You won')
+        else:
+            print('You lose!')
 
 def print_choices(choice, computer_choice) -> None:
     print(f'You chose {parse_to_emoji(choice)}')

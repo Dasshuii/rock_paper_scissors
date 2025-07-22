@@ -1,6 +1,11 @@
 import random
 
-CHOICES = ('r', 'p', 's')
+ROCK = 'r'
+SCISSORS = 's'
+PAPER = 'p'
+EMOJIS = {ROCK: '\U0001FAA8', PAPER: '\U0001F4C3', SCISSORS: '\U00002702'}
+CHOICES = tuple(EMOJIS.keys())
+
 
 def main():
     rock_paper_scissors()
@@ -19,17 +24,20 @@ def rock_paper_scissors() -> None:
 
     print('Thanks for playing :)')
 
-def determine_winner(choice, computer_choice):
+def determine_winner(choice : str, computer_choice : str) -> None:
         if choice == computer_choice:
             print('Tie!')
-        elif (choice == 'r' and computer_choice == 's') or (choice == 'p' and computer_choice == 'r') or (choice == 's' and computer_choice == 'p'):
-            print('You won')
+        elif (
+            (choice == ROCK and computer_choice == SCISSORS) or 
+            (choice == PAPER and computer_choice == ROCK) or 
+            (choice == SCISSORS and computer_choice == PAPER)):
+            print('You won!')
         else:
             print('You lose!')
 
-def print_choices(choice, computer_choice) -> None:
-    print(f'You chose {parse_to_emoji(choice)}')
-    print(f'Computer chose {parse_to_emoji(computer_choice)}')
+def print_choices(choice : str, computer_choice : str) -> None:
+    print(f'You chose {EMOJIS[choice]}')
+    print(f'Computer chose {EMOJIS[computer_choice]}')
 
 def keep_playing() -> bool:
     print('Continue? (y/n): ')
@@ -38,15 +46,6 @@ def keep_playing() -> bool:
         print('Invalid option. Try again!')
         choice = input.lower()
     return choice == 'y'
-
-def parse_to_emoji(choice : str) -> str:
-    match choice:
-        case 'r':
-            return '\U0001FAA8'
-        case 'p':
-            return '\U0001F4C3'
-        case 's':
-            return '\U00002702'
 
 def get_user_input(prompt : str) -> str:
     choice = input(prompt)
